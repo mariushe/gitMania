@@ -1,20 +1,36 @@
+var fs = require("fs");
 var querystring = require("querystring");
 
-function start(response) {
+function main(response) {
     console.log("Request handler 'start' was called.");
 
-    var body = '<html>' +
-        '<head>' +
-        '<meta http-equiv="Content-Type" content="text/html; ' + 'charset=UTF-8" />' +
-        '</head>' +
-        '<body>' +
-        '<p>Test</p>'
-        '</body>' +
-        '</html>';
+    var body = fs.readFileSync("view/main.html");
 
     response.writeHead(200, {"Content-Type":"text/html"});
     response.write(body);
     response.end();
 }
 
-exports.start = start;
+function second(response) {
+    console.log("Request handler 'start' was called.");
+
+    var body = fs.readFileSync("view/second.html");
+
+    response.writeHead(200, {"Content-Type":"text/html"});
+    response.write(body);
+    response.end();
+}
+
+function jstest(response) {
+    console.log("Request handler 'start' was called.");
+
+    var body = fs.readFileSync("view/js/test.js");
+
+    response.writeHead(200, {"Content-Type":"text/JavaScript"});
+    response.write(body);
+    response.end();
+}
+
+exports.main = main;
+exports.second = second;
+exports.jstest = jstest;
