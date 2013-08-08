@@ -1,14 +1,6 @@
-/**
- * Created with IntelliJ IDEA.
- * User: mariusherring
- * Date: 3/24/13
- * Time: 8:11 PM
- * To change this template use File | Settings | File Templates.
- */
-
 var querystring = require("querystring");
 
-function start(response, postData) {
+function start(response) {
     console.log("Request handler 'start' was called.");
 
     var body = '<html>' +
@@ -16,8 +8,7 @@ function start(response, postData) {
         '<meta http-equiv="Content-Type" content="text/html; ' + 'charset=UTF-8" />' +
         '</head>' +
         '<body>' +
-        '<form action="/upload" method="post">' +
-        '<textarea name="text" rows="20" cols="60"></textarea>' + '<input type="submit" value="Submit text" />' + '</form>' +
+        '<p>Test</p>'
         '</body>' +
         '</html>';
 
@@ -26,12 +17,4 @@ function start(response, postData) {
     response.end();
 }
 
-function upload(response, postData) {
-    console.log("Request handler 'upload' was called.");
-    response.writeHead(200, {"Content-Type":"text/plain"});
-    response.write("You've sent: " + querystring.parse(postData).text);
-    response.end();
-}
-
 exports.start = start;
-exports.upload = upload;
