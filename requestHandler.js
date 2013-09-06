@@ -21,10 +21,10 @@ function second(response) {
     response.end();
 }
 
-function jstest(response) {
+function application(response) {
     console.log("Request handler 'start' was called.");
 
-    var body = fs.readFileSync("view/js/test.js");
+    var body = fs.readFileSync("view/js/application.js");
 
     response.writeHead(200, {"Content-Type":"text/JavaScript"});
     response.write(body);
@@ -33,4 +33,4 @@ function jstest(response) {
 
 exports.main = main;
 exports.second = second;
-exports.jstest = jstest;
+exports.application = application;
