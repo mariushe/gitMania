@@ -1,5 +1,10 @@
 $(document).ready(function() {
-	$('#toPress').click(function() {
-		$("#toFill").append("Hello");
-	});
+	
+	$("#submit").click(addNewResult);
+
+	function addNewResult() {
+		var resultValue = $("#field").val();
+		$("#result").append(resultValue + "<br>");
+		$("#field").val("");
+	}
 });
