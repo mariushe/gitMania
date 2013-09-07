@@ -2,15 +2,7 @@ var fs = require("fs");
 var querystring = require("querystring");
 
 function main(response) {
-    var body = fs.readFileSync("view/main.html");
-
-    response.writeHead(200, {"Content-Type":"text/html"});
-    response.write(body);
-    response.end();
-}
-
-function second(response) {
-    var body = fs.readFileSync("view/second.html");
+    var body = fs.readFileSync("assets/main.html");
 
     response.writeHead(200, {"Content-Type":"text/html"});
     response.write(body);
@@ -18,7 +10,7 @@ function second(response) {
 }
 
 function application(response) {
-    var body = fs.readFileSync("view/js/application.js");
+    var body = fs.readFileSync("assets/js/application.js");
 
     response.writeHead(200, {"Content-Type":"text/JavaScript"});
     response.write(body);
@@ -26,7 +18,7 @@ function application(response) {
 }
 
 function tablesorter(response) {
-    var body = fs.readFileSync("view/js/jquery.tablesorter.min.js");
+    var body = fs.readFileSync("assets/js/jquery.tablesorter.min.js");
 
     response.writeHead(200, {"Content-Type":"text/JavaScript"});
     response.write(body);
@@ -34,7 +26,15 @@ function tablesorter(response) {
 }
 
 function css(response) {
-    var body = fs.readFileSync("view/css/application.css");
+    var body = fs.readFileSync("assets/css/application.css");
+
+    response.writeHead(200, {"Content-Type":"text/css"})
+    response.write(body);
+    response.end();
+}
+
+function bootstrap(response) {
+    var body = fs.readFileSync("assets/css/bootstrap.min.css");
 
     response.writeHead(200, {"Content-Type":"text/css"})
     response.write(body);
@@ -42,7 +42,7 @@ function css(response) {
 }
 
 exports.main = main;
-exports.second = second;
 exports.application = application;
 exports.tablesorter = tablesorter;
 exports.css = css;
+exports.bootstrap = bootstrap;

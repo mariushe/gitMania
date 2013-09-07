@@ -5,9 +5,9 @@ var requestHandler = require("./requestHandler");
 var handle = {}
 
 handle["/"] = requestHandler.main;
-handle["/second"] = requestHandler.second;
-handle["/view/js/application.js"] = requestHandler.application;
-handle["/view/js/jquery.tablesorter.min.js"] = requestHandler.tablesorter;
-handle["/view/css/application.css"] = requestHandler.css;
+handle["/assets/js/application.js"] = requestHandler.application;
+handle["/assets/js/jquery.tablesorter.min.js"] = requestHandler.tablesorter;
+handle["/assets/css/application.css"] = requestHandler.css;
+handle["/assets/css/bootstrap.min.css"] = requestHandler.bootstrap;
 
 server.start(router.route, handle);

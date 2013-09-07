@@ -1,0 +1,39 @@
+table.tablesorter { 
+  background-color: #4D4D4D; 
+  font-size: 16px; 
+  font-family: sans-serif;
+  width: 650px; 
+} 
+
+table.tablesorter tr:nth-child(even) {
+  background-color:#F0F0F0;
+}
+
+table.tablesorter tr:nth-child(odd) {
+  background-color:#FBFBFB;
+}
+
+table.tablesorter {
+  border-collapse:collapse
+}
+
+table.tablesorter td { 
+  padding: 5px;   
+} 
+#headline {
+  margin-bottom: 25px;
+}
+#main {
+  margin-right:auto; margin-left:auto; width:800px; height:100px;
+}
+#field {
+  width: 650px; 
+  height: auto;
+  font-size: 16px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding: 7px 9px;
+}
+
+
+
