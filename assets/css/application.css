@@ -17,6 +17,10 @@ table.tablesorter {
   border-collapse:collapse
 }
 
+.alert {
+  width:650px;
+}
+
 table.tablesorter td { 
   padding: 5px;   
 } 
