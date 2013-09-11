@@ -1,5 +1,28 @@
 var fs = require("fs");
 var querystring = require("querystring");
+var sys = require('sys')
+var exec = require('child_process').exec;
+
+function gitResponse(response, content) {
+    response.writeHead(200, {"Content-Type":"application/json"});
+    response.write(JSON.stringify(content));
+    response.end();
+}
+
+function generateGitJson(response, stdout) {
+    var generated = {
+        commits: []
+    }
+    var rawCommits = stdout.split('\n');
+    for (var i in rawCommits) {
+        var commit = rawCommits[i];
+        generated.commits.push({
+            "hash" : commit.substr(0,commit.indexOf(' ')),
+            "msg" : commit.substr(commit.indexOf(' ') + 1)
+        });
+    }
+    gitResponse(response, generated);
+}
 
 function main(response) {
     var body = fs.readFileSync("assets/main.html");
@@ -41,8 +64,17 @@ function bootstrap(response) {
     response.end();
 }
 
+function gitLog(response) {
+    var child = exec ("git log --oneline", function (error, stdout, stderr) {
+       generateGitJson(response, stdout);
+    });
+}
+
+
+
 exports.main = main;
 exports.application = application;
 exports.tablesorter = tablesorter;
 exports.css = css;
 exports.bootstrap = bootstrap;
+exports.gitLog = gitLog;
