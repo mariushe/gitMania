@@ -10,13 +10,11 @@ function gitResponse(response, content) {
 }
 
 function generateGitJson(response, stdout) {
-    var generated = {
-        commits: []
-    }
+    var generated = [];
     var rawCommits = stdout.split('\n');
     for (var i in rawCommits) {
         var commit = rawCommits[i];
-        generated.commits.push({
+        generated.push({
             "hash" : commit.substr(0,commit.indexOf(' ')),
             "msg" : commit.substr(commit.indexOf(' ') + 1)
         });
@@ -70,6 +68,14 @@ function gitLog(response) {
     });
 }
 
+function git(response) {
+    var body = fs.readFileSync("assets/git.html");
+
+    response.writeHead(200, {"Content-Type":"text/html"});
+    response.write(body);
+    response.end();
+}
+
 
 
 exports.main = main;
@@ -78,3 +84,4 @@ exports.tablesorter = tablesorter;
 exports.css = css;
 exports.bootstrap = bootstrap;
 exports.gitLog = gitLog;
+exports.git = git;
