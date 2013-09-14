@@ -2,30 +2,16 @@
 	<head>
         <meta http-equiv="Content-Type" content="text/html; ' + 'charset=UTF-8" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/JavaScript" src="assets/js/git-controller.js"></script>
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 	</head>
   <body>
   	<div id="main">
+      <div id="popup">
+      </div>
        <table id="myTable" class="table table-hover">  
       </table> 
     </div>
 
   </body>
-  <script>
-
-$(document).ready(function() {
- 
-  $.getJSON("/git-data", function(data) {
-    var commits = [];
-
-    $.each(data, function(index, value) {
-      commits.push("<tr><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");
-    });
-    
-    $("#myTable").append(commits.join(''));
-  });
- 
-});
-    </script>
-  </script>
 </html>

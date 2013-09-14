@@ -22,6 +22,13 @@ function generateGitJson(response, stdout) {
     gitResponse(response, generated);
 }
 
+function generationShowJson(response, stdout) {
+    var rawData = stdout.split('\n');
+    var generated = {"hash" : rawData[0]};
+    gitResponse(response, generated);
+
+}
+
 function main(response) {
     var body = fs.readFileSync("assets/main.html");
 
@@ -40,6 +47,14 @@ function application(response) {
 
 function tablesorter(response) {
     var body = fs.readFileSync("assets/js/jquery.tablesorter.min.js");
+
+    response.writeHead(200, {"Content-Type":"text/JavaScript"});
+    response.write(body);
+    response.end();
+}
+
+function git_controller(response) {
+    var body = fs.readFileSync("assets/js/git-controller.js");
 
     response.writeHead(200, {"Content-Type":"text/JavaScript"});
     response.write(body);
@@ -76,12 +91,20 @@ function git(response) {
     response.end();
 }
 
+function gitShow(response) {
+    var child = exec ("git show 12583fd", function (error, stdout, stderr) {
+        generationShowJson(response, stdout);
+    });
+}
+
 
 
 exports.main = main;
 exports.application = application;
 exports.tablesorter = tablesorter;
+exports.git_controller = git_controller;
 exports.css = css;
 exports.bootstrap = bootstrap;
 exports.gitLog = gitLog;
 exports.git = git;
+exports.gitShow = gitShow;
