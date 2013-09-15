@@ -92,12 +92,27 @@ function git(query, response) {
 }
 
 function gitShow(query, response) {
+
     console.log("Query=" + query.commit);
+
+    if (query.commit === undefined) {
+        illegalState(response, "Parameter isn't sent with request");
+        return
+    }
+
     var child = exec ("git show 12583fd", function (error, stdout, stderr) {
         generationShowJson(response, stdout);
     });
 }
 
+function illegalState(response, errorMsg) {
+
+        console.log("Error: " + errorMsg);
+        
+        response.writeHead(404, {"Content-Type": "text/plain"});
+        response.write("404 Not found");
+        response.end();
+}
 
 
 exports.main = main;
