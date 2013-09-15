@@ -1,20 +1,6 @@
-table.tablesorter { 
-  background-color: #4D4D4D; 
-  font-size: 16px; 
-  font-family: sans-serif;
-  width: 650px; 
-} 
-
-table.tablesorter tr:nth-child(even) {
-  background-color:#F0F0F0;
-}
-
-table.tablesorter tr:nth-child(odd) {
-  background-color:#FBFBFB;
-}
-
-table.tablesorter {
-  border-collapse:collapse
+.modal {
+  margin-left: -480px;
+  width: 80%;
 }
 
 .alert {

@@ -5,6 +5,7 @@ function gitResponse(response, content) {
 }
 
 function generationShowJson(response, stdout) {
+	stdout = stdout.split('<').join('&lt;').split('>').join('&gt;');
     var rawData = stdout.split('\n');
     var generated = {
         "hash" : rawData[0].substr(rawData[0].indexOf(' ') + 1),

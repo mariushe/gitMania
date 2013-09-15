@@ -17,6 +17,8 @@ $(document).ready(function() {
 
 function commitClicked() {
 
+  $(".modal").remove();
+
   var hash = $(this).find("td:first").text();
 
   $("#popup").append("<div class='modal' id='test_modal'>" +
@@ -30,6 +32,25 @@ function commitClicked() {
   });
 
   $.getJSON("/git-show?commit=" + hash, function(data) {
-    $(".modal-body").append("<p>" + data.hash + "</p>");
+    var popup = $(".modal-body");
+    var generatedContent = "<div>" + 
+      "<table border = '0'>" +
+      "<tr><td>commit&nbsp;&nbsp;&nbsp;&nbsp;</td><td>" + data.hash + "</td></tr><br>" +
+      "<tr><td>author</td><td>" + data.author + "</td></tr><br>" +
+      "<tr><td>date</td><td>" + data.date + "</td></tr><br>" +
+      "<tr><td>msg</td><td>" + data.msg + "</td></tr><br>"+
+      "</table></div>"; 
+
+    for (i in data.diff) {
+      generatedContent += "--file " + data.diff[i].filename + "<br>";
+      for(j in data.diff[i].lines) {
+        generatedContent +="<code>";
+        generatedContent += data.diff[i].lines[j].line + "<br>";
+        generatedContent +="</code>";
+      }
+    }
+
+    popup.append(generatedContent);
+
   });
 }
