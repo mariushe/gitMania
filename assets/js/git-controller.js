@@ -29,7 +29,7 @@ function commitClicked() {
       $(".modal").remove();
   });
 
-  $.getJSON("/git-show", function(data) {
+  $.getJSON("/git-show?commit=" + hash, function(data) {
     $(".modal-body").append("<p>" + data.hash + "</p>");
   });
 }

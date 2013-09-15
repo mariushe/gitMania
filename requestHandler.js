@@ -92,6 +92,7 @@ function git(query, response) {
 }
 
 function gitShow(query, response) {
+    console.log("Query=" + query.commit);
     var child = exec ("git show 12583fd", function (error, stdout, stderr) {
         generationShowJson(response, stdout);
     });
