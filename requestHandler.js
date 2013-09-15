@@ -1,3 +1,5 @@
+var gitShowHandler = require("./gitShowHandler");
+
 var fs = require("fs");
 var querystring = require("querystring");
 var sys = require('sys')
@@ -20,13 +22,6 @@ function generateGitJson(response, stdout) {
         });
     }
     gitResponse(response, generated);
-}
-
-function generationShowJson(response, stdout) {
-    var rawData = stdout.split('\n');
-    var generated = {"hash" : rawData[0]};
-    gitResponse(response, generated);
-
 }
 
 function main(query, response) {
@@ -98,7 +93,7 @@ function gitShow(query, response) {
     }
 
     var child = exec ("git show " + query.commit, function (error, stdout, stderr) {
-        generationShowJson(response, stdout);
+        gitShowHandler.generationShowJson(response, stdout);
     });
 }
 
