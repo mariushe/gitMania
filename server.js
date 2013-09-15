@@ -5,10 +5,11 @@ function start(route, handle) {
     function onRequest(request, response) {
 
         var pathname = url.parse(request.url).pathname;
+        var query = url.parse(request.url).query;
 
         console.log("Request received.");
 
-        route(handle, pathname, response);
+        route(handle, pathname, query, response);
     }
 
     http.createServer(onRequest).listen(8080);

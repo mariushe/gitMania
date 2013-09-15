@@ -29,7 +29,7 @@ function generationShowJson(response, stdout) {
 
 }
 
-function main(response) {
+function main(query, response) {
     var body = fs.readFileSync("assets/main.html");
 
     response.writeHead(200, {"Content-Type":"text/html"});
@@ -37,7 +37,7 @@ function main(response) {
     response.end();
 }
 
-function application(response) {
+function application(query, response) {
     var body = fs.readFileSync("assets/js/application.js");
 
     response.writeHead(200, {"Content-Type":"text/JavaScript"});
@@ -45,7 +45,7 @@ function application(response) {
     response.end();
 }
 
-function tablesorter(response) {
+function tablesorter(query, response) {
     var body = fs.readFileSync("assets/js/jquery.tablesorter.min.js");
 
     response.writeHead(200, {"Content-Type":"text/JavaScript"});
@@ -53,7 +53,7 @@ function tablesorter(response) {
     response.end();
 }
 
-function git_controller(response) {
+function git_controller(query, response) {
     var body = fs.readFileSync("assets/js/git-controller.js");
 
     response.writeHead(200, {"Content-Type":"text/JavaScript"});
@@ -61,7 +61,7 @@ function git_controller(response) {
     response.end();
 }
 
-function css(response) {
+function css(query, response) {
     var body = fs.readFileSync("assets/css/application.css");
 
     response.writeHead(200, {"Content-Type":"text/css"})
@@ -69,7 +69,7 @@ function css(response) {
     response.end();
 }
 
-function bootstrap(response) {
+function bootstrap(query, response) {
     var body = fs.readFileSync("assets/css/bootstrap.min.css");
 
     response.writeHead(200, {"Content-Type":"text/css"})
@@ -77,13 +77,13 @@ function bootstrap(response) {
     response.end();
 }
 
-function gitLog(response) {
+function gitLog(query, response) {
     var child = exec ("git log --oneline", function (error, stdout, stderr) {
        generateGitJson(response, stdout);
     });
 }
 
-function git(response) {
+function git(query, response) {
     var body = fs.readFileSync("assets/git.html");
 
     response.writeHead(200, {"Content-Type":"text/html"});
@@ -91,7 +91,7 @@ function git(response) {
     response.end();
 }
 
-function gitShow(response) {
+function gitShow(query, response) {
     var child = exec ("git show 12583fd", function (error, stdout, stderr) {
         generationShowJson(response, stdout);
     });
