@@ -33,8 +33,8 @@ function commitClicked() {
 
   $.getJSON("/git-show?commit=" + hash, function(data) {
     var popup = $(".modal-body");
-    var generatedContent = "<div>" + 
-      "<table border = '0'>" +
+    var generatedContent = "<div class='well well-small'  display: inline-block>" + 
+      "<table id='commitTable'>" +
       "<tr><td>commit&nbsp;&nbsp;&nbsp;&nbsp;</td><td>" + data.hash + "</td></tr><br>" +
       "<tr><td>author</td><td>" + data.author + "</td></tr><br>" +
       "<tr><td>date</td><td>" + data.date + "</td></tr><br>" +
@@ -43,11 +43,13 @@ function commitClicked() {
 
     for (i in data.diff) {
       generatedContent += "--file " + data.diff[i].filename + "<br>";
+      generatedContent +="<pre><code>";
+
       for(j in data.diff[i].lines) {
-        generatedContent +="<code>";
         generatedContent += data.diff[i].lines[j].line + "<br>";
-        generatedContent +="</code>";
       }
+
+      generatedContent +="</code></pre>";
     }
 
     popup.append(generatedContent);
