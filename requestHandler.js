@@ -73,12 +73,19 @@ function bootstrap(query, response) {
 }
 
 function gitLog(query, response) {
-    var child = exec ("git log --oneline", function (error, stdout, stderr) {
-       generateGitJson(response, stdout);
-    });
+    if (query.repository === undefined) {
+        exec ("git log --oneline", function (error, stdout, stderr) {
+            generateGitJson(response, stdout);
+        });
+    } else {
+        exec ("cd " + query.repository + "; git log --oneline", function (error, stdout, stderr) {
+            generateGitJson(response, stdout);
+        });
+    }
 }
 
 function git(query, response) {
+
     var body = fs.readFileSync("assets/git.html");
 
     response.writeHead(200, {"Content-Type":"text/html"});

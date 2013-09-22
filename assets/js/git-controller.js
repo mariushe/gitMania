@@ -12,6 +12,8 @@ $(document).ready(function() {
 
     $("#myTable").find("tr").click(commitClicked);
 
+    $("#changeRepository").click(changeRepo);
+
   });
 });
 
@@ -62,4 +64,25 @@ function commitClicked() {
     popup.append(generatedContent);
 
   });
+}
+
+function changeRepo() {
+
+  $("#myTable").children().remove();
+
+  var path = $("#field").val();
+
+  $.getJSON("/git-data?repository=" + path, function(data) {
+    var commits = [];
+
+    $.each(data, function(index, value) {
+      commits.push("<tr id='commit-" + index +"'><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");
+    });
+    
+    $("#myTable").append(commits.join(''));
+
+    $("#myTable").find("tr").click(commitClicked);
+
+  });
+
 }
