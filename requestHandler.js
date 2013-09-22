@@ -24,14 +24,6 @@ function generateGitJson(response, stdout) {
     gitResponse(response, generated);
 }
 
-function main(query, response) {
-    var body = fs.readFileSync("assets/main.html");
-
-    response.writeHead(200, {"Content-Type":"text/html"});
-    response.write(body);
-    response.end();
-}
-
 function application(query, response) {
     var body = fs.readFileSync("assets/js/application.js");
 
@@ -119,8 +111,6 @@ function illegalState(response, errorMsg) {
         response.end();
 }
 
-
-exports.main = main;
 exports.application = application;
 exports.tablesorter = tablesorter;
 exports.git_controller = git_controller;

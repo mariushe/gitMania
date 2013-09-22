@@ -4,7 +4,7 @@ var requestHandler = require("./requestHandler");
 
 var handle = {}
 
-handle["/"] = requestHandler.main;
+handle["/"] = requestHandler.git;
 handle["/assets/js/application.js"] = requestHandler.application;
 handle["/assets/js/jquery.tablesorter.min.js"] = requestHandler.tablesorter;
 handle["/assets/js/git-controller.js"] = requestHandler.git_controller;
