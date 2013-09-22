@@ -33,20 +33,27 @@ function commitClicked() {
 
   $.getJSON("/git-show?commit=" + hash, function(data) {
     var popup = $(".modal-body");
-    var generatedContent = "<div class='well well-small'  display: inline-block>" + 
-      "<table id='commitTable'>" +
-      "<tr><td>commit&nbsp;&nbsp;&nbsp;&nbsp;</td><td>" + data.hash + "</td></tr><br>" +
-      "<tr><td>author</td><td>" + data.author + "</td></tr><br>" +
-      "<tr><td>date</td><td>" + data.date + "</td></tr><br>" +
-      "<tr><td>msg</td><td>" + data.msg + "</td></tr><br>"+
-      "</table></div>"; 
+    var generatedContent = "<div class=''  display: inline-block>" +
+     "<table id='commitTable'>" +
+      "<tr><td><span style='color: #9A9A9A'>commit</span>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>" + data.hash + "</td></tr>" +
+      "<tr><td><span style='color: #9A9A9A'>author</span></td><td>" + data.author + "</td></tr>" +
+      "<tr><td><span style='color: #9A9A9A'>date</span></td><td>" + data.date + "</td></tr>" +
+      "<tr><td><span style='color: #9A9A9A'>msg</span></td><td>" + data.msg + "</td></tr>"+
+     "</table></div>"; 
 
     for (i in data.diff) {
-      generatedContent += "--file " + data.diff[i].filename + "<br>";
+      generatedContent += "<br><h5>" + data.diff[i].filename + "</h5>";
       generatedContent +="<pre><code>";
 
       for(j in data.diff[i].lines) {
-        generatedContent += data.diff[i].lines[j].line + "<br>";
+        if (data.diff[i].lines[j].line.substring(0,1) == "-") {
+          generatedContent += "<span style='color: #ff0000'>" + data.diff[i].lines[j].line + "</span><br>";  
+        } else if (data.diff[i].lines[j].line.substring(0,1) == "+") {
+          generatedContent += "<span style='color: #00BF00'>" + data.diff[i].lines[j].line + "</span><br>";  
+        } else {
+          generatedContent += data.diff[i].lines[j].line + "<br>";  
+        }
+        
       }
 
       generatedContent +="</code></pre>";
