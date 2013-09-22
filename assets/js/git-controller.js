@@ -1,4 +1,8 @@
 
+var repository = {
+  path : ""
+}
+
 $(document).ready(function() {
  
   $.getJSON("/git-data", function(data) {
@@ -33,7 +37,7 @@ function commitClicked() {
       $(".modal").remove();
   });
 
-  $.getJSON("/git-show?commit=" + hash, function(data) {
+  $.getJSON("/git-show?commit=" + hash + "&repository=" + repository.path, function(data) {
     var popup = $(".modal-body");
     var generatedContent = "<div class=''  display: inline-block>" +
      "<table id='commitTable'>" +
@@ -83,6 +87,7 @@ function changeRepo() {
 
     $("#myTable").find("tr").click(commitClicked);
 
+    repository.path = path;
   });
 
 }

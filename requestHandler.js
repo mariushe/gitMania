@@ -99,9 +99,15 @@ function gitShow(query, response) {
         return
     }
 
-    var child = exec ("git show " + query.commit, function (error, stdout, stderr) {
-        gitShowHandler.generationShowJson(response, stdout);
-    });
+    if (query.repository === undefined || query.repository === "") {
+        var child = exec ("git show " + query.commit, function (error, stdout, stderr) {
+            gitShowHandler.generationShowJson(response, stdout);
+        });
+    } else {
+       var child = exec ("cd " + query.repository + "; git show " + query.commit, function (error, stdout, stderr) {
+            gitShowHandler.generationShowJson(response, stdout);
+        });  
+    }
 }
 
 function illegalState(response, errorMsg) {
