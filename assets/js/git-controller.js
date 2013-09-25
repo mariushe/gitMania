@@ -28,10 +28,17 @@ function commitClicked() {
   var hash = $(this).find("td:first").text();
 
   $("#popup").append("<div class='modal' id='test_modal'>" +
-    "<div class='modal-body'>" +
+    "<div class='modal-header'>" +
+    "&nbsp;" +
     "<a class='close' data-dismiss='modal'>&times;</a>" +
     "</div>" +
+    "<div class='modal-body'>" +
+    "</div>" +
     "</div>");
+
+  $("#test_modal").draggable({
+    handle: ".modal-header"
+  });
 
   $(".close").click(function() {
       $(".modal").remove();
