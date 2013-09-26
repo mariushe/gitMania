@@ -111,6 +111,11 @@ function illegalState(response, errorMsg) {
         response.end();
 }
 
+function gitCreateBranchLabels() {
+    child = exec ("git branch" + query.commit, function (error, stdout, stderr) {
+            gitShowHandler.generationShowJson(response, stdout);
+  
+} 
 exports.application = application;
 exports.tablesorter = tablesorter;
 exports.git_controller = git_controller;
