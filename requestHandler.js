@@ -1,4 +1,5 @@
 var gitShowHandler = require("./gitShowHandler");
+var gitBranchHandler = require("./branchHandler");
 
 var fs = require("fs");
 var querystring = require("querystring");
@@ -104,18 +105,19 @@ function gitShow(query, response) {
 
 function illegalState(response, errorMsg) {
 
-        console.log("Error: " + errorMsg);
+    console.log("Error: " + errorMsg);
 
-        response.writeHead(404, {"Content-Type": "text/plain"});
-        response.write("404 Not found");
-        response.end();
+    response.writeHead(404, {"Content-Type": "text/plain"});
+    response.write("404 Not found");
+    response.end();
 }
 
-function gitCreateBranchLabels() {
-    child = exec ("git branch" + query.commit, function (error, stdout, stderr) {
-            gitShowHandler.generationShowJson(response, stdout);
-  
-} 
+function getBranchLabels(query, response) {
+    exec ("cd " + query.repository + "; git branch", function (error, stdout, stderr) {
+        gitBranchHandler.handleRequestForBranches(response,stdout);
+    });
+}
+
 exports.application = application;
 exports.tablesorter = tablesorter;
 exports.git_controller = git_controller;
@@ -124,3 +126,4 @@ exports.bootstrap = bootstrap;
 exports.gitLog = gitLog;
 exports.git = git;
 exports.gitShow = gitShow;
+exports.getBranchLabels = getBranchLabels;

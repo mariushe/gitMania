@@ -13,5 +13,6 @@ handle["/assets/css/bootstrap.min.css"] = requestHandler.bootstrap;
 handle["/git"] = requestHandler.git;
 handle["/git-data"] = requestHandler.gitLog;
 handle["/git-show"] = requestHandler.gitShow;
+handle["/my-branches"] = requestHandler.getBranchLabels;
 
 server.start(router.route, handle);
