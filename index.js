@@ -14,5 +14,6 @@ handle["/git"] = requestHandler.git;
 handle["/git-data"] = requestHandler.gitLog;
 handle["/git-show"] = requestHandler.gitShow;
 handle["/my-branches"] = requestHandler.getBranchLabels;
+handle["/get-branch-for-commit"] = requestHandler.getBranchForCommit;
 
 server.start(router.route, handle);

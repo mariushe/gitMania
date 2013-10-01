@@ -1,12 +1,32 @@
 var exec = require('child_process').exec;
 
-function getBrancheForCommit(commit) {
-	exec ("cd " + query.repository + "; git branch --contains " + commit, function (error, stdout, stderr) {
-	 	var branch = stdout.substr(2);
-	 	console.log("branch for commit: " + branch);
+function createResponse(response, content) {
+    response.writeHead(200, {"Content-Type":"application/json"});
+    response.write(JSON.stringify(content));
+    response.end();
+}
 
-	 	return branch;
-    });  
+function getBranchForCommit(query, response) {
+	if (query.repository === undefined) {
+		var child = exec ("git branch --contains " + query.commit, function (error, stdout, stderr) {
+
+			if (stdout.indexOf("\n") != -1) {
+				createResponse(response, { "branch": stdout.substr(2, stdout.indexOf("\n")-2)});
+			} else {
+				createResponse(response, { "branch": stdout.substr(2)});
+			}
+    	}); 
+    } else {
+        var child = exec ("cd " + query.repository + "; git branch --contains " + query.commit, function (error, stdout, stderr) {
+
+        	if (stdout.indexOf("\n") != -1) {
+				createResponse(response, { "branch": stdout.substr(2, stdout.indexOf("\n")-2)});
+			} else {
+				createResponse(response, { "branch": stdout.substr(2)});
+			}
+    	});
+    }
+	
 }
 
 function handleRequestForBranches(response, stdout) {
@@ -48,10 +68,7 @@ function getLabels() {
 	return labels;
 }
 
-function createResponse(response, content) {
-    response.writeHead(200, {"Content-Type":"application/json"});
-    response.write(JSON.stringify(content));
-    response.end();
-}
+
 
 exports.handleRequestForBranches = handleRequestForBranches;
+exports.getBranchForCommit = getBranchForCommit;

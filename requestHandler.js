@@ -25,6 +25,7 @@ function generateGitJson(response, stdout) {
     gitResponse(response, generated);
 }
 
+
 function application(query, response) {
     var body = fs.readFileSync("assets/js/application.js");
 
@@ -68,11 +69,13 @@ function bootstrap(query, response) {
 function gitLog(query, response) {
     if (query.repository === undefined) {
         exec ("git log --oneline", function (error, stdout, stderr) {
-            generateGitJson(response, stdout);
+
+            generateGitJson(response, stdout); 
         });
     } else {
         exec ("cd " + query.repository + "; git log --oneline", function (error, stdout, stderr) {
-            generateGitJson(response, stdout);
+
+            generateGitJson(response, stdout);  
         });
     }
 }
@@ -103,6 +106,10 @@ function gitShow(query, response) {
     }
 }
 
+function getBranchForCommit(query, response) {
+   gitBranchHandler.getBranchForCommit(query, response);
+}
+
 function illegalState(response, errorMsg) {
 
     console.log("Error: " + errorMsg);
@@ -127,3 +134,4 @@ exports.gitLog = gitLog;
 exports.git = git;
 exports.gitShow = gitShow;
 exports.getBranchLabels = getBranchLabels;
+exports.getBranchForCommit = getBranchForCommit;

@@ -1,3 +1,5 @@
+var gitBranchHandler = require("./branchHandler");
+
 function gitResponse(response, content) {
     response.writeHead(200, {"Content-Type":"application/json"});
     response.write(JSON.stringify(content));
@@ -5,13 +7,15 @@ function gitResponse(response, content) {
 }
 
 function generationShowJson(response, stdout) {
+
 	stdout = stdout.split('<').join('&lt;').split('>').join('&gt;');
     var rawData = stdout.split('\n');
+	
     var generated = {
         "hash" : rawData[0].substr(rawData[0].indexOf(' ') + 1),
         "author" : rawData[1].substr(rawData[1].indexOf(' ') + 1),
         "date" :  rawData[2].substr(rawData[2].indexOf(' ') + 1),
-        "msg" :  rawData[4].substr(rawData[4].indexOf(' ') + 1).trim(),
+        "msg" :  rawData[4].substr(rawData[4].indexOf(' ') + 1).trim(),      
         "diff" : []
     };
     runThroughDifference(rawData, generated);

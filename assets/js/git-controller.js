@@ -4,20 +4,30 @@ var repository = {
 }
 
 $(document).ready(function() {
+
  
   $.getJSON("/git-data", function(data) {
     var commits = [];
 
+    function whenReady() {
+      $("#myTable").append(commits.join(''));
+
+      $("#myTable").find("tr").click(commitClicked);
+
+      $("#changeRepository").click(changeRepo);  
+    }
+
     $.each(data, function(index, value) {
-      commits.push("<tr id='commit-" + index +"'><td><span class='label'>international</span></td><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");
-    });
-    
-    $("#myTable").append(commits.join(''));
 
-    $("#myTable").find("tr").click(commitClicked);
+      $.getJSON("/get-branch-for-commit?commit="+value.hash, function(branch) {
 
-    $("#changeRepository").click(changeRepo);
-
+        commits.push("<tr id='commit-" + index +"'><td><span class='label'>" + branch.branch + "</span></td><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");  
+          
+        if (index == data.length-1) {
+          whenReady();
+        }          
+      });
+    }); 
   });
 });
 
