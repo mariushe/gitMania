@@ -1,5 +1,6 @@
 var gitShowHandler = require("./gitShowHandler");
 var gitBranchHandler = require("./branchHandler");
+var gitLogHandler = require("./gitLogHandler");
 
 var fs = require("fs");
 var querystring = require("querystring");
@@ -67,17 +68,7 @@ function bootstrap(query, response) {
 }
 
 function gitLog(query, response) {
-    if (query.repository === undefined) {
-        exec ("git log --oneline", function (error, stdout, stderr) {
-
-            generateGitJson(response, stdout); 
-        });
-    } else {
-        exec ("cd " + query.repository + "; git log --oneline", function (error, stdout, stderr) {
-
-            generateGitJson(response, stdout);  
-        });
-    }
+    gitLogHandler.gitLog(query, response);
 }
 
 function git(query, response) {

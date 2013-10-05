@@ -9,25 +9,15 @@ $(document).ready(function() {
   $.getJSON("/git-data", function(data) {
     var commits = [];
 
-    function whenReady() {
-      $("#myTable").append(commits.join(''));
-
-      $("#myTable").find("tr").click(commitClicked);
-
-      $("#changeRepository").click(changeRepo);  
-    }
-
     $.each(data, function(index, value) {
-
-      $.getJSON("/get-branch-for-commit?commit="+value.hash, function(branch) {
-
-        commits.push("<tr id='commit-" + index +"'><td><span class='label'>" + branch.branch + "</span></td><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");  
-          
-        if (index == data.length-1) {
-          whenReady();
-        }          
-      });
+      commits.push("<tr id='commit-" + index +"'><td><span class='label'>" + value.branch + "</span></td><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");  
     }); 
+
+    $("#myTable").append(commits.join(''));
+
+    $("#myTable").find("tr").click(commitClicked);
+
+    $("#changeRepository").click(changeRepo);  
   });
 });
 
@@ -97,8 +87,8 @@ function changeRepo() {
     var commits = [];
 
     $.each(data, function(index, value) {
-      commits.push("<tr id='commit-" + index +"'><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");
-    });
+      commits.push("<tr id='commit-" + index +"'><td><span class='label'>" + value.branch + "</span></td><td>" + value.hash + "</td><td>" + value.msg + "</td></tr>");  
+    }); 
     
     $("#myTable").append(commits.join(''));
 
