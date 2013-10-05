@@ -108,4 +108,3 @@ exports.gitLog = gitLog;
 exports.git = git;
 exports.gitShow = gitShow;
 exports.getBranchLabels = getBranchLabels;
-exports.getBranchForCommit = getBranchForCommit;
