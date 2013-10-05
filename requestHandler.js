@@ -13,19 +13,6 @@ function gitResponse(response, content) {
     response.end();
 }
 
-function generateGitJson(response, stdout) {
-    var generated = [];
-    var rawCommits = stdout.split('\n');
-    for (var i in rawCommits) {
-        var commit = rawCommits[i];
-        generated.push({
-            "hash" : commit.substr(0,commit.indexOf(' ')),
-            "msg" : commit.substr(commit.indexOf(' ') + 1)
-        });
-    }
-    gitResponse(response, generated);
-}
-
 
 function application(query, response) {
     var body = fs.readFileSync("assets/js/application.js");
@@ -95,10 +82,6 @@ function gitShow(query, response) {
             gitShowHandler.generationShowJson(response, stdout);
         });  
     }
-}
-
-function getBranchForCommit(query, response) {
-   gitBranchHandler.getBranchForCommit(query, response);
 }
 
 function illegalState(response, errorMsg) {

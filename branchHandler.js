@@ -6,29 +6,6 @@ function createResponse(response, content) {
     response.end();
 }
 
-function getBranchForCommit(query, response) {
-	if (query.repository === undefined) {
-		var child = exec ("git branch --contains " + query.commit, function (error, stdout, stderr) {
-
-			if (stdout.indexOf("\n") != -1) {
-				createResponse(response, { "branch": stdout.substr(2, stdout.indexOf("\n")-2)});
-			} else {
-				createResponse(response, { "branch": stdout.substr(2)});
-			}
-    	}); 
-    } else {
-        var child = exec ("cd " + query.repository + "; git branch --contains " + query.commit, function (error, stdout, stderr) {
-
-        	if (stdout.indexOf("\n") != -1) {
-				createResponse(response, { "branch": stdout.substr(2, stdout.indexOf("\n")-2)});
-			} else {
-				createResponse(response, { "branch": stdout.substr(2)});
-			}
-    	});
-    }
-	
-}
-
 function handleRequestForBranches(response, stdout) {
 	
 	var branches = stdout.split('\n');
@@ -71,4 +48,3 @@ function getLabels() {
 
 
 exports.handleRequestForBranches = handleRequestForBranches;
-exports.getBranchForCommit = getBranchForCommit;
