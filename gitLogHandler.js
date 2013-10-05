@@ -62,7 +62,7 @@ function gitLog(query, response) {
             generateResponse(query, response, stdout.split('\n')); 
         });
     } else {
-        exec ("cd " + query.repository + "; git log --oneline", function (error, stdout, stderr) {
+        exec ("cd " + query.repository + "; git log --oneline -100", function (error, stdout, stderr) {
 
             generateResponse(query, response, stdout.split('\n'));  
         });
