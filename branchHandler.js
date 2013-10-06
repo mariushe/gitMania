@@ -34,7 +34,9 @@ function handleRequestForBranches(response, stdout) {
 }
 
 function getLabels() {
+
 	labels = [];
+	
 	labels[0] = "label";
 	labels[1] = "label label-info";
 	labels[2] = "label label-important";

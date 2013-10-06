@@ -1,6 +1,7 @@
 var gitBranchHandler = require("./branchHandler");
 
 function gitResponse(response, content) {
+	
     response.writeHead(200, {"Content-Type":"application/json"});
     response.write(JSON.stringify(content));
     response.end();
@@ -18,13 +19,17 @@ function generationShowJson(response, stdout) {
         "msg" :  rawData[4].substr(rawData[4].indexOf(' ') + 1).trim(),      
         "diff" : []
     };
+
     runThroughDifference(rawData, generated);
     gitResponse(response, generated);
 }
 
 function runThroughDifference(rawData, generated) {
+
 	for (var i = 5; i < rawData.length; i++) {
+
 		if (rawData[i].indexOf("diff") == 0) {
+
 			generated.diff.push({
 				"filename" : getFilename(rawData[i]),
 				"lines" : getChanges(i, rawData)
@@ -38,7 +43,9 @@ function runThroughDifference(rawData, generated) {
 }
 
 function getChanges(index, rawData) {
+
 	for (var i = index; i < rawData.length; i++) {
+
 		if (rawData[i].indexOf("@@") == 0) {
 			return fetchLinesThatAreChanged(i+1, rawData);
 			console.log(getFilename(rawData[i]));	

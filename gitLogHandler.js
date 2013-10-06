@@ -1,6 +1,7 @@
 var exec = require('child_process').exec;
 
 function createResponse(response, content) {
+    
     response.writeHead(200, {"Content-Type":"application/json"});
     response.write(JSON.stringify(content));
     response.end();

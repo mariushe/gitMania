@@ -68,16 +68,19 @@ function git(query, response) {
 }
 
 function gitShow(query, response) {
+    
     if (query.commit === undefined) {
         illegalState(response, "Parameter isn't sent with request");
         return
     }
 
     if (query.repository === undefined || query.repository === "") {
+
         var child = exec ("git show " + query.commit, function (error, stdout, stderr) {
             gitShowHandler.generationShowJson(response, stdout);
         });
     } else {
+
        var child = exec ("cd " + query.repository + "; git show " + query.commit, function (error, stdout, stderr) {
             gitShowHandler.generationShowJson(response, stdout);
         });  
